@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/19 16:30:08 by ccaballe          #+#    #+#             */
+/*   Updated: 2023/01/04 13:03:18 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include	"libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+void	*ft_memcpy(void *dst, void *src, size_t n)
 {
-	pid_t	pid;
+	size_t			i;
+	unsigned char	*a;
+	unsigned char	*b;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
+	i = 0;
+	a = (unsigned char *)dst;
+	b = (unsigned char *)src;
+	if (!dst && !src)
+		return (NULL);
+	while (i < n)
 	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
+		a[i] = b[i];
+		i++;
 	}
+	return (dst);
 }

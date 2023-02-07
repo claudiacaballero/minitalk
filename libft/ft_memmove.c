@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/19 16:41:19 by ccaballe          #+#    #+#             */
+/*   Updated: 2023/01/04 13:03:21 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+void	*ft_memmove(void *dst, void *src, size_t len)
 {
-	pid_t	pid;
+	size_t			i;
+	unsigned char	*a;
+	unsigned char	*b;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
+	i = 0;
+	a = (unsigned char *)dst;
+	b = (unsigned char *)src;
+	if (!dst && !src)
+		return (NULL);
+	if (a <= b)
 	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
+		ft_memcpy(dst, src, len);
 	}
+	else
+	{
+		while (len > 0)
+		{
+			a[len - 1] = b[len - 1];
+			len--;
+		}
+	}
+	return (dst);
 }

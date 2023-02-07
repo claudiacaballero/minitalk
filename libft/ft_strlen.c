@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/15 17:31:05 by ccaballe          #+#    #+#             */
+/*   Updated: 2022/12/19 18:48:20 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+size_t	ft_strlen(char *s)
 {
-	pid_t	pid;
+	int	i;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
-	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
-	}
+	i = 0;
+	if (!s)
+		return (i);
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }

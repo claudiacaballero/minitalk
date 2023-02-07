@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/24 16:57:18 by ccaballe          #+#    #+#             */
+/*   Updated: 2022/09/24 17:19:26 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+void	ft_putnbr_fd(int n, int fd)
 {
-	pid_t	pid;
-
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	else if (n < 0)
 	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
+		write(fd, "-", 1);
+		ft_putnbr_fd(n * -1, fd);
 	}
+	else if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putchar_fd((n % 10) + '0', fd);
+	}
+	else if (n < 10)
+		ft_putchar_fd(n + '0', fd);
 }

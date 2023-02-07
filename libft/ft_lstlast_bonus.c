@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/30 16:26:27 by ccaballe          #+#    #+#             */
+/*   Updated: 2022/09/30 18:44:34 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+t_list	*ft_lstlast(t_list *lst)
 {
-	pid_t	pid;
+	t_list	*temp;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
-	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
-	}
+	temp = lst;
+	if (!lst)
+		return (NULL);
+	while (temp->next != NULL)
+		temp = temp->next;
+	return (temp);
 }

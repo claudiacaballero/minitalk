@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/19 16:44:19 by ccaballe          #+#    #+#             */
+/*   Updated: 2023/01/04 13:03:44 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+char	*ft_strchr(char *s, int c)
 {
-	pid_t	pid;
+	int		i;
+	char	*a;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
+	a = (char *)s;
+	i = 0;
+	while (s[i] != '\0')
 	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
+		if (s[i] == (unsigned char)c)
+			return (&a[i]);
+		i++;
 	}
+	if ((unsigned char)c == '\0')
+		return (&a[i]);
+	else
+		return (NULL);
 }

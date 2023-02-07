@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/22 14:42:23 by ccaballe          #+#    #+#             */
+/*   Updated: 2023/01/04 13:04:39 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-	pid_t	pid;
+	char	*sub;
+	size_t	i;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
-	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
-	}
+	if (!s)
+		return (NULL);
+	i = ft_strlen(s);
+	if (i < start)
+		return (ft_strdup(""));
+	if (start + len > i)
+		len = i - start;
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (!sub)
+		return (NULL);
+	if (start < ft_strlen(s))
+		ft_memcpy(sub, &s[start], len);
+	sub[len] = '\0';
+	return (sub);
 }

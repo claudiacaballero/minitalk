@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/15 15:07:41 by ccaballe          #+#    #+#             */
+/*   Updated: 2022/09/19 17:54:47 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+int	ft_isalnum(int c)
 {
-	pid_t	pid;
-
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
+	if ((c > 64 && c < 91) || (c > 96 && c < 123))
+		return (1);
+	else if (c >= 48 && c <= 57)
+		return (1);
 	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
-	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
-	}
 }

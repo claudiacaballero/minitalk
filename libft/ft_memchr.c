@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/21 17:49:54 by ccaballe          #+#    #+#             */
+/*   Updated: 2023/01/04 13:03:06 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+void	*ft_memchr(void *s, int c, size_t n)
 {
-	pid_t	pid;
+	size_t			i;
+	unsigned char	*a;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
+	a = (unsigned char *)s;
+	i = 0;
+	while (i < n)
 	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
+		if (a[i] == (unsigned char)c)
+			return (&a[i]);
+		i++;
 	}
+	return (NULL);
 }

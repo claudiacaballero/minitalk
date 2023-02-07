@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/10/04 15:33:56 by ccaballe          #+#    #+#             */
+/*   Updated: 2022/10/19 15:04:01 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-//fer funcio pel pid
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdarg.h>
 
-int	main(void)
-{
-	pid_t	pid;
+int	ft_putchar(char c);
+int	ft_putstr(char *s);
+int	ft_putnbr(long long int nb, int c);
+int	ft_putnbr_base(unsigned int nb, char c);
+int	ft_putptr(unsigned long ptr);
+int	ft_print_arg(va_list args, char type);
+int	ft_printf(char const *str, ...);
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
-	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
-	}
-}
+#endif

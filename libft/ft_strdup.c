@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/21 19:55:06 by ccaballe          #+#    #+#             */
+/*   Updated: 2023/01/04 13:03:48 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+char	*ft_strdup(char *s)
 {
-	pid_t	pid;
+	char	*m;
+	int		i;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
+	m = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!m)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
+		m[i] = s[i];
+		i++;
 	}
+	m[i] = '\0';
+	return (m);
 }

@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/19 16:27:43 by ccaballe          #+#    #+#             */
+/*   Updated: 2023/01/04 13:04:04 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
+#include <stdio.h>
+#include <string.h>
 
-//fer funcio pel pid
-
-int	main(void)
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
-	pid_t	pid;
+	size_t	size;
+	size_t	i;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
+	size = 0;
+	while (src[size] != '\0')
+		size++;
+	if (dstsize == 0)
+		return (size);
+	i = 0;
+	while (src[i] != '\0' && i < dstsize - 1)
 	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
+		dst[i] = src[i];
+		i++;
 	}
+	dst[i] = '\0';
+	return (size);
 }

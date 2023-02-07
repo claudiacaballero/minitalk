@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Created: 2022/09/19 16:24:58 by ccaballe          #+#    #+#             */
+/*   Updated: 2023/01/04 13:03:59 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-//fer funcio pel pid
-
-int	main(void)
+size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
 {
-	pid_t	pid;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
-	pid = getpid();
-	ft_printf("%i\n", pid);
-	while (1)
-		pause();
-	return (0);
-}
-
-void	byte_to_char(int sig)
-{
-	int	base;
-	int	c;
-
-	base = 128;
-	c = 0;
-	while (base >= 1)
+	if (dstsize <= ft_strlen(dst))
+		return (dstsize + ft_strlen(src));
+	i = ft_strlen(dst);
+	k = ft_strlen(dst);
+	j = 0;
+	while (src[j] != '\0' && i < dstsize - 1)
 	{
-		if (sig == SIGUSR1)
-			c += base;
-		base = base / 2;
+		dst[i] = src[j];
+		i++;
+		j++;
 	}
+	if (dstsize != 0 && i <= dstsize)
+		dst[i] = '\0';
+	return (k + ft_strlen(src));
 }
