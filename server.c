@@ -6,7 +6,7 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:24 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:52:55 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,22 @@ int	main(void)
 	pid_t	pid;
 
 	pid = getpid();
-	ft_printf("%i\n", pid);
+	if (ft_printf("%i\n", pid) == -1)
+		exit(1);
+	recieve_signal();
 	while (1)
 		pause();
 	return (0);
 }
 
-void	byte_to_char(int sig)
+void	receive_signal(void)
+{
+	char	byte[8];
+
+	sigaction()
+}
+
+/*void	byte_to_char(int sig)
 {
 	int	base;
 	int	c;
@@ -38,4 +47,4 @@ void	byte_to_char(int sig)
 			c += base;
 		base = base / 2;
 	}
-}
+}*/
