@@ -6,7 +6,7 @@
 #    By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 15:04:10 by ccaballe          #+#    #+#              #
-#    Updated: 2023/02/07 18:05:37 by ccaballe         ###   ########.fr        #
+#    Updated: 2023/02/14 13:27:58 by ccaballe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,14 +42,18 @@ all:
 	@$(MAKE) $(SERVER)
 
 $(CLIENT):: $(OBJ_CLIENT)
-	@$(CC) $(OBJ_CLIENT) $(LIBS) -o $@
+	@$(MAKE) -C libft
+	@$(MAKE) -C ft_printf
+	@$(CC) $(CFLAGS) $(OBJ_CLIENT) $(LIBS) -o $@
 	@echo "$(GREEN)client compiled$(NC)"
 
 $(CLIENT)::
 	@echo -n
 
 $(SERVER):: $(OBJ_SERVER)
-	@$(CC) $(OBJ_SERVER) $(LIBS) -o $@
+	@$(MAKE) -C libft
+	@$(MAKE) -C ft_printf
+	@$(CC) $(CFLAGS) $(OBJ_SERVER) $(LIBS) -o $@
 	@echo "$(GREEN)server compiled$(NC)"
 
 $(SERVER)::

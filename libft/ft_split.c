@@ -6,7 +6,7 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 19:12:30 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/01/04 13:03:38 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:00:03 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,3 @@ char	**ft_split(char *s, char c)
 	m[row] = 0;
 	return (m);
 }
-/*
-int	main(void)
-{	
-	char	**tab;
-
-	tab = ft_split("xxxxxxxxhello!", 'x');
-	printf("%d\n", ft_num_words("xxxxxxxxhello!", 'x'));
-	printf("%s\n", tab[0]);
-	return (0);
-}*/
