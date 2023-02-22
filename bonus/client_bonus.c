@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 12:50:11 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/22 18:05:08 by ccaballe         ###   ########.fr       */
+/*   Created: 2023/02/15 13:05:28 by ccaballe          #+#    #+#             */
+/*   Updated: 2023/02/16 15:53:41 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
-
-//gestionar els errors (exit o ???)
-//(que et digui quin és l'error potser??)
+#include "minitalk_bonus.h"
 
 int	main(int argc, char **argv)
 {
@@ -56,7 +53,7 @@ void	char_to_byte(char *s, pid_t pid)
 			if (s[i] >= base)
 			{
 				if (kill(pid, SIGUSR1) == -1)
-					exit(1);
+					exit (1);
 				s[i] -= base;
 			}
 			else

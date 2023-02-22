@@ -6,13 +6,15 @@
 #    By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 15:04:10 by ccaballe          #+#    #+#              #
-#    Updated: 2023/02/14 13:27:58 by ccaballe         ###   ########.fr        #
+#    Updated: 2023/02/16 16:49:12 by ccaballe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minitalk
 CLIENT = client
 SERVER = server
+CLIENT_BONUS = client_b
+SERVER_BONUS = server_b
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -23,6 +25,14 @@ DEP_CLIENT = $(SRC_CLIENT:.c=.d)
 SRC_SERVER = server.c
 OBJ_SERVER = $(SRC_SERVER:.c=.o)
 DEP_SERVER = $(SRC_SERVER:.c=.d)
+
+SRC_CLIENT_BONUS = bonus/client_bonus.c
+OBJ_CLIENT_BONUS = $(SRC_CLIENT_BONUS:.c=.o)
+DEP_CLIENT_BONUS = $(SRC_CLIENT_BONUS:.c=.d)
+
+SRC_SERVER_BONUS = bonus/server_bonus.c
+OBJ_SERVER_BONUS = $(SRC_SERVER_BONUS:.c=.o)
+DEP_SERVER_BONUS = $(SRC_SERVER_BONUS:.c=.d)
 
 RM = rm -f
 
@@ -59,32 +69,47 @@ $(SERVER):: $(OBJ_SERVER)
 $(SERVER)::
 	@echo -n
 
+#BONUS
+bonus:
+	@$(MAKE) -C libft
+	@$(MAKE) -C ft_printf
+	@$(MAKE) $(CLIENT_BONUS)
+	@$(MAKE) $(SERVER_BONUS)
 
-# bonus:
-# 	@$(MAKE) -C libft
-# 	@$(MAKE) -C ft_printf
-# 	@$(MAKE) $(BONUS)
+$(CLIENT_BONUS):: $(OBJ_CLIENT_BONUS)
+	@$(MAKE) -C libft
+	@$(MAKE) -C ft_printf
+	@$(CC) $(CFLAGS) $(OBJ_CLIENT_BONUS) $(LIBS) -o $@
+	@echo "$(GREEN)client bonus compiled$(NC)"
 
-# $(BONUS):: $(OBJBONUS)
-# 	@$(CC) $(OBJBONUS) $(LIBS) -o $@
-# 	@echo "$(GREEN)checker compiled$(NC)"
+$(CLIENT_BONUS)::
+	@echo -n
 
-# $(BONUS)::
-# 	@echo -n
+$(SERVER_BONUS):: $(OBJ_SERVER_BONUS)
+	@$(MAKE) -C libft
+	@$(MAKE) -C ft_printf
+	@$(CC) $(CFLAGS) $(OBJ_SERVER_BONUS) $(LIBS) -o $@
+	@echo "$(GREEN)server bonus compiled$(NC)"
+
+$(SERVER_BONUS)::
+	@echo -n
+
 
 clean:
 	@$(RM) $(OBJ_SERVER) $(OBJ_CLIENT) $(DEP_SERVER) $(DEP_CLIENT)
+	@$(RM) $(OBJ_SERVER_BONUS) $(OBJ_CLIENT_BONUS) $(DEP_SERVER_BONUS) $(DEP_CLIENT_BONUS)
 	@$(MAKE) clean -C libft
 	@$(MAKE) clean -C ft_printf
 	@echo "$(RED)\ndestruction successful\n$(NC)"
 
 fclean: clean
-	@$(RM) $(CLIENT) $(SERVER) $(LIBS)
+	@$(RM) $(CLIENT) $(SERVER) $(CLIENT_BONUS) $(SERVER_BONUS) $(LIBS) 
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
 
 -include $(DEP_CLIENT)
 -include $(DEP_SERVER)
-#-include $(DEPBONUS)
+-include $(DEP_CLIENT_BONUS)
+-include $(DEP_SERVER_BONUS)
