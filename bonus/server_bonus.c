@@ -6,7 +6,7 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:04:32 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/03/02 17:28:16 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:50:11 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 
 int	main(void)
 {
-	pid_t				pid;
+	pid_t				pid_server;
 	struct sigaction	sa;
 
-	pid = getpid();
-	if (ft_printf("%i\n", pid) == -1)
+	pid_server = getpid();
+	if (ft_printf("%i\n", pid_server) == -1)
 		exit(1);
 	sa.sa_sigaction = &handler;
 	sa.sa_flags = SA_SIGINFO;
@@ -47,8 +47,6 @@ void	get_byte(int sig, pid_t pid_client)
 	static int	bits[8];
 	static int	i = 0;
 
-	if (kill(pid_client, SIGUSR1) == -1)
-		exit(1);
 	if (sig == SIGUSR1)
 		bits[i] = 1;
 	else
@@ -59,6 +57,9 @@ void	get_byte(int sig, pid_t pid_client)
 		byte_to_char(bits, pid_client);
 		i = 0;
 	}
+	usleep(60);
+	if (kill(pid_client, SIGUSR1) == -1)
+		exit(1);
 }
 
 void	byte_to_char(int *bits, pid_t pid_client)
