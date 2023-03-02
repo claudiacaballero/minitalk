@@ -6,7 +6,7 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:04:32 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/22 18:28:17 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/03/02 17:28:16 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,29 @@ int	main(void)
 	pid = getpid();
 	if (ft_printf("%i\n", pid) == -1)
 		exit(1);
-	sa.sa_sigaction = handler;
+	sa.sa_sigaction = &handler;
 	sa.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
 		exit(1);
 	if (sigaction(SIGUSR2, &sa, NULL))
 		exit(1);
 	while (1)
-	{
 		pause();
-	}
 	return (0);
 }
 
 void	handler(int signo, siginfo_t *info, void *other)
 {
-	
+	(void)other;
+	get_byte(signo, info->si_pid);
 }
 
-void	get_byte(int sig, pid_t pid)
+void	get_byte(int sig, pid_t pid_client)
 {
 	static int	bits[8];
 	static int	i = 0;
 
-	if (kill(pid, SIGUSR1) == -1)
+	if (kill(pid_client, SIGUSR1) == -1)
 		exit(1);
 	if (sig == SIGUSR1)
 		bits[i] = 1;
@@ -57,12 +56,12 @@ void	get_byte(int sig, pid_t pid)
 	i++;
 	if (i == 8)
 	{
-		byte_to_char(bits, pid);
+		byte_to_char(bits, pid_client);
 		i = 0;
 	}
 }
 
-void	byte_to_char(int *bits, pid_t pid)
+void	byte_to_char(int *bits, pid_t pid_client)
 {
 	int	base;
 	int	c;
@@ -78,7 +77,7 @@ void	byte_to_char(int *bits, pid_t pid)
 		base = base / 2;
 	}
 	if (c == '\0')
-		if (kill(pid, SIGUSR2) == -1)
+		if (kill(pid_client, SIGUSR2) == -1)
 			exit(1);
 	ft_printf("%c", c);
 }
