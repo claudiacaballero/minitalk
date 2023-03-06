@@ -6,7 +6,7 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:04:32 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/03/02 18:50:11 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:16:40 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	get_byte(int sig, pid_t pid_client)
 	static int	bits[8];
 	static int	i = 0;
 
+	if (kill(pid_client, SIGUSR1) == -1)
+		exit(1);
 	if (sig == SIGUSR1)
 		bits[i] = 1;
 	else
@@ -57,9 +59,6 @@ void	get_byte(int sig, pid_t pid_client)
 		byte_to_char(bits, pid_client);
 		i = 0;
 	}
-	usleep(60);
-	if (kill(pid_client, SIGUSR1) == -1)
-		exit(1);
 }
 
 void	byte_to_char(int *bits, pid_t pid_client)
