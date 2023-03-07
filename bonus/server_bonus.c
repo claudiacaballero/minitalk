@@ -6,7 +6,7 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:04:32 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/03/07 12:08:03 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:46:16 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,43 +33,24 @@ int	main(void)
 
 void	handler_server(int signo, siginfo_t *info, void *other)
 {
-	static int	bits[8];
-	static int	i = 0;
+	static int	c = 0;
+	static int	num_bit = 0;
 
 	(void)other;
 	if (signo == SIGUSR1)
-		bits[i] = 1;
-	else
-		bits[i] = 0;
-	i++;
+		c = (c | (128 >> num_bit));
+	num_bit++;
 	if (kill(info->si_pid, SIGUSR1) == -1)
 		exit(1);
-	if (i == 8)
+	if (num_bit == 8)
 	{
-		byte_to_char(bits, info->si_pid);
-		i = 0;
+		if (c == '\0')
+		{
+			if (kill(info->si_pid, SIGUSR2) == -1)
+				exit(1);
+		}
+		ft_printf("%c", c);
+		num_bit = 0;
+		c = 0;
 	}
-}
-
-void	byte_to_char(int *bits, pid_t pid_client)
-{
-	int	base;
-	int	c;
-	int	i;
-
-	base = 128;
-	c = 0;
-	i = 0;
-	while (base >= 1)
-	{
-		if (bits[i++] == 1)
-			c += base;
-		base = base / 2;
-	}
-	if (c == '\0')
-	{
-		if (kill(pid_client, SIGUSR2) == -1)
-			exit(1);
-	}
-	ft_printf("%c", c);
 }

@@ -6,7 +6,7 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 12:50:18 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/02/15 13:05:50 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:35:26 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,35 +30,16 @@ int	main(void)
 
 void	get_byte(int sig)
 {
-	static int	bits[8];
-	static int	i = 0;
+	static int	c = 0;
+	static int	num_bit = 0;
 
 	if (sig == SIGUSR1)
-		bits[i] = 1;
-	else
-		bits[i] = 0;
-	i++;
-	if (i == 8)
+		c = (c | (128 >> num_bit));
+	num_bit++;
+	if (num_bit == 8)
 	{
-		byte_to_char(bits);
-		i = 0;
+		ft_printf("%c", c);
+		num_bit = 0;
+		c = 0;
 	}
-}
-
-void	byte_to_char(int *bits)
-{
-	int	base;
-	int	c;
-	int	i;
-
-	base = 128;
-	c = 0;
-	i = 0;
-	while (base >= 1)
-	{
-		if (bits[i++] == 1)
-			c += base;
-		base = base / 2;
-	}
-	ft_printf("%c", c);
 }

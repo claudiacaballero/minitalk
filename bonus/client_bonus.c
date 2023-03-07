@@ -6,7 +6,7 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:05:28 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/03/07 12:21:43 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:39:41 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,25 @@ void	handler_client(int signo, siginfo_t *info, void *other)
 
 void	char_to_byte(char *s, pid_t pid_server)
 {
-	int	base;
 	int	i;
+	int	num_bit;
 
 	i = -1;
 	while (s[++i])
 	{
-		base = 128;
-		while (base >= 1)
+		num_bit = -1;
+		while (++num_bit < 8)
 		{
-			if (s[i] >= base)
+			if ((s[i] & (128 >> num_bit)) == 0)
 			{
-				if (kill(pid_server, SIGUSR1) == -1)
-					exit (1);
-				s[i] -= base;
-			}
-			else
 				if (kill(pid_server, SIGUSR2) == -1)
 					exit(1);
-			base = base / 2;
+			}
+			else
+			{
+				if (kill(pid_server, SIGUSR1) == -1)
+					exit(1);
+			}
 			usleep(100);
 		}
 	}

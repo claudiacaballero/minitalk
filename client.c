@@ -6,7 +6,7 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 12:50:11 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/03/06 14:41:06 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:34:03 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,25 @@ int	valid_pid(char *s)
 
 void	char_to_byte(char *s, pid_t pid)
 {
-	int	base;
 	int	i;
+	int	num_bit;
 
 	i = -1;
 	while (s[++i])
 	{
-		base = 128;
-		while (base >= 1)
+		num_bit = -1;
+		while (++num_bit < 8)
 		{
-			if (s[i] >= base)
+			if ((s[i] & (128 >> num_bit)) == 0)
+			{
+				if (kill(pid, SIGUSR2) == -1)
+					exit(1);
+			}
+			else
 			{
 				if (kill(pid, SIGUSR1) == -1)
 					exit(1);
-				s[i] -= base;
 			}
-			else
-				if (kill(pid, SIGUSR2) == -1)
-					exit(1);
-			base = base / 2;
 			usleep(100);
 		}
 	}
