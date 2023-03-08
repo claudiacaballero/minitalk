@@ -6,14 +6,11 @@
 /*   By: ccaballe <ccaballe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 12:50:11 by ccaballe          #+#    #+#             */
-/*   Updated: 2023/03/07 17:34:03 by ccaballe         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:43:18 by ccaballe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-//gestionar els errors (exit o ???)
-//(que et digui quin és l'error potser??)
 
 int	main(int argc, char **argv)
 {
